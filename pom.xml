@@ -12,7 +12,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <plugin.id>${project.artifactId}</plugin.id>
-        <plugin.class>com.github.taccisum.pigeon.ext.aliyun.WelcomePlugin</plugin.class>
+        <plugin.class>com.github.taccisum.pigeon.ext.aliyun.AliCloudPlugin</plugin.class>
         <plugin.version>${project.version}</plugin.version>
         <plugin.provider>taccisum</plugin.provider>
         <plugin.dependencies/>
