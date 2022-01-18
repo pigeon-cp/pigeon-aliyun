@@ -1,13 +1,13 @@
 package com.github.taccisum.pigeon.ext.aliyun.entity.sp;
 
 import com.github.taccisum.domain.core.DomainException;
-import com.github.taccisum.domain.core.Entity;
 import com.github.taccisum.domain.core.exception.DataNotFoundException;
 import com.github.taccisum.pigeon.core.entity.core.ServiceProvider;
 import com.github.taccisum.pigeon.core.entity.core.ThirdAccount;
 import com.github.taccisum.pigeon.core.entity.core.sp.MailServiceProvider;
 import com.github.taccisum.pigeon.core.entity.core.sp.SMSServiceProvider;
 import com.github.taccisum.pigeon.core.repo.ThirdAccountRepo;
+import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +21,7 @@ import javax.annotation.Resource;
  * @since 0.1
  */
 @Slf4j
-public class AliCloud extends Entity.Base<String> implements
-        ServiceProvider,
+public class AliCloud extends ServiceProvider.Base implements
         MailServiceProvider,
         SMSServiceProvider {
     @Resource
@@ -37,9 +36,10 @@ public class AliCloud extends Entity.Base<String> implements
      *
      * @param id 账号 id
      */
-    public AliCloudAccount getAccount(long id) throws DataNotFoundException {
+    @Override
+    public AliCloudAccount getAccountOrThrow(Long id) throws DataNotFoundException {
         DomainException ex = new DataNotFoundException("阿里云账号", id);
-        ThirdAccount account = thirdAccountRepo.get(id)
+        ThirdAccount account = this.getAccount(id)
                 .orElseThrow(() -> ex);
 
         if (account instanceof AliCloudAccount) {
@@ -62,6 +62,11 @@ public class AliCloud extends Entity.Base<String> implements
             return (AliCloudAccount) account;
         }
         throw ex;
+    }
+
+    @Override
+    protected boolean match(ThirdAccount thirdAccount) {
+        return SpType.ALI_CLOUD.match(thirdAccount.data().getSpType());
     }
 
     public enum Region {

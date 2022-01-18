@@ -28,7 +28,7 @@ public class AliCloudMail extends Mail {
         try {
             MessageDO data = this.data();
             this.getServiceProvider()
-                    .getAccount(data.getSpAccountId())
+                    .getAccountOrThrow(data.getSpAccountId())
                     .sendMailVia(
                             data.getSender(),
                             data.getTarget(),
@@ -49,6 +49,11 @@ public class AliCloudMail extends Mail {
         this.updateStatus(success ? Status.DELIVERED : Status.FAIL);
         this.publish(new DeliverEvent(success));
         return success;
+    }
+
+    @Override
+    protected boolean isRealTime() {
+        return false;
     }
 
     @Override

@@ -15,6 +15,6 @@ public class AliMailSpecialEventSubscriber implements DomainEventSubscriber {
     @Override
     public void listen(Message.DeliverEvent e) throws Throwable {
         // TODO:: 未开启邮件跟踪的话只能特别处理，假定邮件投递成功即为发送成功
-        e.getPublisher().publish(new Message.SentEvent(e.getSuccess()));
+        e.getPublisher().markSent(e.getSuccess());
     }
 }

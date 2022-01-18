@@ -2,8 +2,8 @@ package com.github.taccisum.pigeon.ext.aliyun.repo.factory.message;
 
 import com.github.taccisum.pigeon.core.entity.core.Message;
 import com.github.taccisum.pigeon.core.repo.factory.MessageFactory;
-import com.github.taccisum.pigeon.ext.aliyun.entity.message.AliCloudMail;
-import com.github.taccisum.pigeon.ext.aliyun.entity.message.AliCloudSMS;
+import com.github.taccisum.pigeon.ext.aliyun.entity.message.DingRobotMarkDown;
+import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;
 import org.pf4j.Extension;
 
 /**
@@ -11,14 +11,12 @@ import org.pf4j.Extension;
  * @since 0.1
  */
 @Extension
-public class AliCloudMailMessageFactory implements MessageFactory {
+public class DingTalkMessageFactory implements MessageFactory {
     @Override
     public Message create(Long id, Criteria criteria) {
         switch (criteria.getType()) {
-            case "MAIL":
-                return new AliCloudMail(id);
-            case "SMS":
-                return new AliCloudSMS(id);
+            case "DING-ROBOT-MD":
+                return new DingRobotMarkDown(id);
             default:
                 throw new UnsupportedOperationException(criteria.getType());
         }
@@ -26,6 +24,6 @@ public class AliCloudMailMessageFactory implements MessageFactory {
 
     @Override
     public boolean match(Long id, Criteria o) {
-        return "ALI_CLOUD".equals(o.getSpType());
+        return SpType.DING_TALK.match(o.getSpType());
     }
 }

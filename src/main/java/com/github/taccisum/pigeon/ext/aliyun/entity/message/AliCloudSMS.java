@@ -27,11 +27,16 @@ public class AliCloudSMS extends SMS {
     }
 
     @Override
+    protected boolean isRealTime() {
+        return false;
+    }
+
+    @Override
     protected void doDelivery() throws Exception {
         MessageDO data = this.data();
 
         AliCloudAccount account = this.getServiceProvider()
-                .getAccount(data.getSpAccountId());
+                .getAccountOrThrow(data.getSpAccountId());
 
         MessageTemplate template = this.getTemplate();
 
