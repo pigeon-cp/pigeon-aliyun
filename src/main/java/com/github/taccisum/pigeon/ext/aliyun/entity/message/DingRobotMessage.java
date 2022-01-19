@@ -1,8 +1,10 @@
 package com.github.taccisum.pigeon.ext.aliyun.entity.message;
 
 import com.github.taccisum.domain.core.exception.DataErrorException;
+import com.github.taccisum.pigeon.core.data.MessageDO;
 import com.github.taccisum.pigeon.core.entity.core.Message;
 import com.github.taccisum.pigeon.core.entity.core.ServiceProvider;
+import com.github.taccisum.pigeon.core.repo.ThirdAccountRepo;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.DingTalk;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.DingTalkRobot;
 
@@ -18,19 +20,19 @@ public abstract class DingRobotMessage extends Message {
     }
 
     @Override
-    protected boolean isRealTime() {
+    public boolean isRealTime() {
         // 钉钉消息基本都是实时消息
         return true;
     }
 
     @Override
-    protected boolean shouldRelateTemplate() {
+    public boolean shouldRelateTemplate() {
         // 钉钉消息无需关联模板也可自由发送
         return false;
     }
 
     @Override
-    protected DingTalk getServiceProvider() {
+    public DingTalk getServiceProvider() {
         ServiceProvider sp = this.serviceProviderRepo.get(this.data().getSpType());
         if (sp instanceof DingTalk) {
             return (DingTalk) sp;
@@ -42,6 +44,9 @@ public abstract class DingRobotMessage extends Message {
      * 获取用于发送此消息的钉钉机器人
      */
     protected DingTalkRobot getRobot() {
-        return this.getServiceProvider().getRobot(this.data().getSpAccountId());
+        MessageDO data = this.data();
+        return this.getServiceProvider()
+                .getRobot(data.getSpAccountId())
+                .orElseThrow(() -> new ThirdAccountRepo.NotFoundException(data.getSpAccountId(), data.getSpType()));
     }
 }

@@ -27,7 +27,7 @@ public class AliCloudSMS extends SMS {
     }
 
     @Override
-    protected boolean isRealTime() {
+    public boolean isRealTime() {
         return false;
     }
 
@@ -58,7 +58,7 @@ public class AliCloudSMS extends SMS {
     }
 
     @Override
-    protected AliCloud getServiceProvider() {
+    public AliCloud getServiceProvider() {
         SMSServiceProvider sp = super.getServiceProvider();
         if (sp instanceof AliCloud) {
             return (AliCloud) sp;

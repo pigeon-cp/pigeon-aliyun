@@ -12,7 +12,7 @@ public class DingRobotMarkDownTemplate extends DingRobotMessageTemplate {
     }
 
     @Override
-    protected String getMessageType() {
+    public String getMessageType() {
         return "DING-ROBOT-MD";
     }
 }

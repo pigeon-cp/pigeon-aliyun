@@ -52,7 +52,7 @@ public class AliCloudMail extends Mail {
     }
 
     @Override
-    protected boolean isRealTime() {
+    public boolean isRealTime() {
         return false;
     }
 
@@ -62,7 +62,7 @@ public class AliCloudMail extends Mail {
     }
 
     @Override
-    protected AliCloud getServiceProvider() {
+    public AliCloud getServiceProvider() {
         MailServiceProvider sp = super.getServiceProvider();
         if (sp instanceof AliCloud) {
             return (AliCloud) sp;

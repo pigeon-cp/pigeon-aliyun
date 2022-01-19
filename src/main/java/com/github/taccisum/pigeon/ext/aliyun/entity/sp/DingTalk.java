@@ -41,13 +41,13 @@ public class DingTalk extends ServiceProvider.Base implements
      * @param id 三方账号 id
      * @return 钉钉机器人实体
      */
-    public DingTalkRobot getRobot(long id) {
+    public Optional<DingTalkRobot> getRobot(long id) {
         Optional<ThirdAccount> account = this.getAccount(id);
         if (!account.isPresent()) {
-            return null;
+            return Optional.empty();
         }
         if (account.get() instanceof DingTalkRobot) {
-            return (DingTalkRobot) account.get();
+            return Optional.of((DingTalkRobot) account.get());
         } else {
             throw new DataErrorException("钉钉机器人", id, "类型不匹配");
         }
