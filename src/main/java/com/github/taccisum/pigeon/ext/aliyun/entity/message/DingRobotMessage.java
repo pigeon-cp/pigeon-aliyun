@@ -24,6 +24,12 @@ public abstract class DingRobotMessage extends Message {
     }
 
     @Override
+    protected boolean shouldRelateTemplate() {
+        // 钉钉消息无需关联模板也可自由发送
+        return false;
+    }
+
+    @Override
     protected DingTalk getServiceProvider() {
         ServiceProvider sp = this.serviceProviderRepo.get(this.data().getSpType());
         if (sp instanceof DingTalk) {
@@ -33,8 +39,7 @@ public abstract class DingRobotMessage extends Message {
     }
 
     /**
-     *
-     * @return
+     * 获取用于发送此消息的钉钉机器人
      */
     protected DingTalkRobot getRobot() {
         return this.getServiceProvider().getRobot(this.data().getSpAccountId());
