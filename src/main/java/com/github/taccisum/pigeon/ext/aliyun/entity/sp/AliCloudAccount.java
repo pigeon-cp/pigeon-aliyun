@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -111,8 +112,12 @@ public class AliCloudAccount extends ThirdAccount {
                 request.putQueryParameter("TemplateParam", params);
             }
             CommonResponse response = client.getCommonResponse(request);
-//            response.getData().getCode() == 'OK'
-            log.info("请求阿里运营商返回：{}", JsonUtils.stringify(response));
+
+            log.debug("请求阿里运营商返回：{}", JsonUtils.stringify(response));
+            Map<String, Object> rsp = JsonUtils.parse(response.getData(), Map.class);
+            if (rsp.get("Code") != "OK") {
+                throw new SMSSendException(response);
+            }
         } catch (ClientException e) {
             log.warn("调用阿里云发送模板消息失败", e);
             throw new SMSSendException(e);
@@ -164,6 +169,10 @@ public class AliCloudAccount extends ThirdAccount {
             super(String.format("阿里云 Open API \"%s\" 访问异常，错误码： %s，错误信息：%s", key, cause.getErrCode(), cause.getErrMsg()),
                     cause);
         }
+
+        public OApiAccessException(String key, CommonResponse response) {
+            super(String.format("阿里云 Open API \"%s\" 请求失败，响应内容：%s", key, response.getData()));
+        }
     }
 
     public static class MailSendException extends OApiAccessException {
@@ -175,6 +184,10 @@ public class AliCloudAccount extends ThirdAccount {
     public static class SMSSendException extends OApiAccessException {
         public SMSSendException(ClientException cause) {
             super("SMS_Send", cause);
+        }
+
+        public SMSSendException(CommonResponse response) {
+            super("SMS_Send", response);
         }
     }
 }
