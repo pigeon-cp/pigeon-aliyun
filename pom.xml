@@ -17,6 +17,7 @@
         <plugin.version>${project.version}</plugin.version>
         <plugin.provider>taccisum</plugin.provider>
         <plugin.dependencies/>
+        <pigeon.finalName>pigeon-aliyun</pigeon.finalName>
     </properties>
 
     <dependencies>
@@ -60,6 +61,7 @@
     </dependencies>
 
     <build>
+        <finalName>${pigeon.finalName}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -91,6 +93,24 @@
                         <goals>
                             <goal>single</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.coderplus.maven.plugins</groupId>
+                <artifactId>copy-rename-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-file</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>target/${pigeon.finalName}.jar</sourceFile>
+                            <destinationFile>/tmp/jars/${pigeon.finalName}.jar</destinationFile>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
