@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * 阿里云邮件服务消息
+ * 阿里云短信消息
  *
  * @author taccisum - liaojinfeng6938@dingtalk.com
  * @since 0.1
