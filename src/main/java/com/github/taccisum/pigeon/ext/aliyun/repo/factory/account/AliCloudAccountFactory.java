@@ -3,6 +3,7 @@ package com.github.taccisum.pigeon.ext.aliyun.repo.factory.account;
 import com.github.taccisum.pigeon.core.entity.core.ThirdAccount;
 import com.github.taccisum.pigeon.core.repo.factory.ThirdAccountFactory;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.AliCloudAccount;
+import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;
 import org.pf4j.Extension;
 
 import java.util.Objects;
@@ -20,6 +21,6 @@ public class AliCloudAccountFactory implements ThirdAccountFactory {
 
     @Override
     public boolean match(Long id, Criteria o) {
-        return Objects.equals(o.getSpType(), "ALI_CLOUD");
+        return SpType.ALI_CLOUD.match(o.getSpType());
     }
 }

@@ -4,6 +4,7 @@ import com.github.taccisum.pigeon.core.entity.core.Message;
 import com.github.taccisum.pigeon.core.repo.factory.MessageFactory;
 import com.github.taccisum.pigeon.ext.aliyun.entity.message.AliCloudMail;
 import com.github.taccisum.pigeon.ext.aliyun.entity.message.AliCloudSMS;
+import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;
 import org.pf4j.Extension;
 
 /**
@@ -26,6 +27,6 @@ public class AliCloudMessageFactory implements MessageFactory {
 
     @Override
     public boolean match(Long id, Criteria o) {
-        return "ALI_CLOUD".equals(o.getSpType());
+        return SpType.ALI_CLOUD.match(o.getSpType());
     }
 }

@@ -3,6 +3,7 @@ package com.github.taccisum.pigeon.ext.aliyun.repo.factory.sp;
 import com.github.taccisum.pigeon.core.entity.core.ServiceProvider;
 import com.github.taccisum.pigeon.core.repo.factory.ServiceProviderFactory;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.AliCloud;
+import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;
 import org.pf4j.Extension;
 
 import java.util.Objects;
@@ -20,6 +21,6 @@ public class AliCloudFactory implements ServiceProviderFactory {
 
     @Override
     public boolean match(String id, Criteria o) {
-        return Objects.equals(o.getSpType(), "ALI_CLOUD");
+        return SpType.ALI_CLOUD.match(o.getSpType());
     }
 }
