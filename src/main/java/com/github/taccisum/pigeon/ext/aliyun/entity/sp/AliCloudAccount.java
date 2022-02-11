@@ -83,7 +83,7 @@ public class AliCloudAccount extends ThirdAccount {
     }
 
     /**
-     * 发送短信
+     * 通过阿里云接口发送短信，详细文档 https://help.aliyun.com/document_detail/101414.html
      *
      * @param templateCode 短信模板 code
      * @param phone        接受方手机号码
@@ -92,9 +92,6 @@ public class AliCloudAccount extends ThirdAccount {
      */
     public void sendSMS(String templateCode, String phone, String signature, String params)
             throws SMSSendException {
-//        System.setProperty("sun.net.client.defaultConnectTimeout", "");
-//        System.setProperty("sun.net.client.defaultReadTimeout", "");
-
         AliCloud.Region region = AliCloud.Region.HANG_ZHOU;
         IAcsClient client = this.getClient(region);
 
@@ -115,7 +112,7 @@ public class AliCloudAccount extends ThirdAccount {
 
             log.debug("请求阿里运营商返回：{}", JsonUtils.stringify(response));
             Map<String, Object> rsp = JsonUtils.parse(response.getData(), Map.class);
-            if (rsp.get("Code") != "OK") {
+            if (Objects.equals(rsp.get("Code"), "OK")) {
                 throw new SMSSendException(response);
             }
         } catch (ClientException e) {
