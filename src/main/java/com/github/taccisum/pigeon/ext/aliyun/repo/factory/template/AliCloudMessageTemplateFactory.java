@@ -1,5 +1,6 @@
 package com.github.taccisum.pigeon.ext.aliyun.repo.factory.template;
 
+import com.github.taccisum.pigeon.core.entity.core.Message;
 import com.github.taccisum.pigeon.core.entity.core.MessageTemplate;
 import com.github.taccisum.pigeon.core.repo.factory.MessageTemplateFactory;
 import com.github.taccisum.pigeon.ext.aliyun.entity.template.AliCloudMailTemplate;
@@ -15,9 +16,9 @@ public class AliCloudMessageTemplateFactory implements MessageTemplateFactory {
     @Override
     public MessageTemplate create(Long id, Criteria criteria) {
         switch (criteria.getType()) {
-            case "MAIL":
+            case Message.Type.MAIL:
                 return new AliCloudMailTemplate(id);
-            case "SMS":
+            case Message.Type.SMS:
                 return new AliCloudSMSTemplate(id);
             default:
                 throw new UnsupportedOperationException(criteria.getType());
