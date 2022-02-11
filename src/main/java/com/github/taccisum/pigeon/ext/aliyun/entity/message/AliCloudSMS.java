@@ -1,8 +1,9 @@
 package com.github.taccisum.pigeon.ext.aliyun.entity.message;
 
 import com.github.taccisum.domain.core.exception.DataErrorException;
-import com.github.taccisum.pigeon.core.data.MessageDO;
 import com.github.taccisum.pigeon.core.entity.core.MessageTemplate;
+import com.github.taccisum.pigeon.core.entity.core.RawMessageDeliverer;
+import com.github.taccisum.pigeon.core.entity.core.holder.MessageDelivererHolder;
 import com.github.taccisum.pigeon.core.entity.core.message.SMS;
 import com.github.taccisum.pigeon.core.entity.core.sp.SMSServiceProvider;
 import com.github.taccisum.pigeon.core.repo.MessageTemplateRepo;
@@ -18,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since 0.1
  */
 @Slf4j
-public class AliCloudSMS extends SMS {
+public class AliCloudSMS extends SMS implements MessageDelivererHolder {
     @Autowired
     private MessageTemplateRepo messageTemplateRepo;
 
@@ -33,23 +34,10 @@ public class AliCloudSMS extends SMS {
 
     @Override
     protected void doDelivery() throws Exception {
-        MessageDO data = this.data();
-
-        AliCloudAccount account = this.getServiceProvider()
-                .getAccountOrThrow(data.getSpAccountId());
-
-        MessageTemplate template = this.getTemplate();
-
-        if (template != null) {
-            account.sendSMS(
-                    template.data().getThirdCode(),
-                    data.getTarget(),
-                    "豌豆思维VIPThink",
-                    data.getParams()
-            );
-        } else {
-            throw new UnsupportedOperationException("暂不支持非模板消息");
-        }
+        this.getServiceProvider()
+                .getAccountOrThrow(this.data().getSpAccountId())
+                .toRawMessageDeliverer()
+                .deliver(this.data());
     }
 
     private MessageTemplate getTemplate() {
@@ -64,5 +52,15 @@ public class AliCloudSMS extends SMS {
             return (AliCloud) sp;
         }
         throw new DataErrorException("AliCloudSMS.ServiceProvider", this.id(), "阿里云短信消息可能关联了错误的服务提供商：" + sp.getType() + "，请检查数据是否异常");
+    }
+
+    @Override
+    public AliCloudAccount getSpAccount() {
+        return (AliCloudAccount) super.getSpAccount();
+    }
+
+    @Override
+    public RawMessageDeliverer getMessageDeliverer() {
+        return this.getSpAccount().toRawMessageDeliverer();
     }
 }
