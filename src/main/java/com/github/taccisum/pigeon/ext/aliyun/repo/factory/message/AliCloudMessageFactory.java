@@ -16,9 +16,9 @@ public class AliCloudMessageFactory implements MessageFactory {
     @Override
     public Message create(Long id, Criteria criteria) {
         switch (criteria.getType()) {
-            case "MAIL":
+            case Message.Type.MAIL:
                 return new AliCloudMail(id);
-            case "SMS":
+            case Message.Type.SMS:
                 return new AliCloudSMS(id);
             default:
                 throw new UnsupportedOperationException(criteria.getType());
