@@ -1,6 +1,5 @@
 package com.github.taccisum.pigeon.ext.aliyun.entity.sp;
 
-import com.dingtalk.api.response.OapiRobotSendResponse;
 import com.github.taccisum.domain.core.DomainException;
 import com.github.taccisum.domain.core.exception.DataErrorException;
 import com.github.taccisum.pigeon.core.entity.core.ServiceProvider;
@@ -11,6 +10,7 @@ import com.github.taccisum.pigeon.core.repo.ThirdAccountRepo;
 import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;
 import com.github.taccisum.pigeon.ext.aliyun.repo.factory.sp.DingTalkOrganizationFactory;
 import com.taobao.api.ApiException;
+import com.taobao.api.TaobaoResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Resource;
@@ -85,7 +85,7 @@ public class DingTalk extends ServiceProvider.Base implements
      * 钉钉 Open API 访问异常
      */
     public static class OApiAccessException extends DomainException {
-        public OApiAccessException(OapiRobotSendResponse response) {
+        public OApiAccessException(TaobaoResponse response) {
             super(String.format("请求钉钉 Open API 失败，响应内容：%s", response.getBody()));
         }
 

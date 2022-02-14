@@ -7,6 +7,7 @@ import com.github.taccisum.pigeon.core.entity.core.ServiceProvider;
 import com.github.taccisum.pigeon.core.repo.ThirdAccountRepo;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.DingTalk;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.DingTalkRobot;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * 钉钉机器人消息
@@ -48,5 +49,40 @@ public abstract class DingRobotMessage extends Message {
         return this.getServiceProvider()
                 .getRobot(data.getSpAccountId())
                 .orElseThrow(() -> new ThirdAccountRepo.NotFoundException(data.getSpAccountId(), data.getSpType()));
+    }
+
+    /**
+     * 构建最终发送的钉钉消息
+     *
+     * @param content 内容
+     * @param target  目标对象
+     * @param sender  发送人
+     * @param isMd    是否 markdown
+     */
+    protected static String buildContent(String content, String target, String sender, boolean isMd) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(content);
+
+        if (StringUtils.isNotBlank(target)) {
+            String[] targets = target.split("[,，]");
+            if (targets.length > 0) {
+                sb.append("\n");
+                for (String t : targets) {
+                    sb.append("@")
+                            .append(t.trim());
+                }
+            }
+        }
+
+        if (StringUtils.isNotBlank(sender)) {
+            sb.append("\n");
+            if (isMd) {
+                sb.append("> —— by ");
+            } else {
+                sb.append("—— by ");
+            }
+            sb.append(sender);
+        }
+        return sb.toString();
     }
 }

@@ -4,13 +4,13 @@ import com.github.taccisum.pigeon.core.data.MessageDO;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.DingTalkRobot;
 
 /**
- * 钉钉机器人 MarkDown 消息
+ * 钉钉机器人 TEXT 消息
  *
  * @author taccisum - liaojinfeng6938@dingtalk.com
- * @since 0.1
+ * @since 0.2
  */
-public class DingRobotMarkDown extends DingRobotMessage {
-    public DingRobotMarkDown(Long id) {
+public class DingRobotText extends DingRobotMessage {
+    public DingRobotText(Long id) {
         super(id);
     }
 
@@ -18,6 +18,6 @@ public class DingRobotMarkDown extends DingRobotMessage {
     protected void doDelivery() {
         DingTalkRobot robot = this.getRobot();
         MessageDO data = this.data();
-        robot.sendMarkDown(data.getTitle(), buildContent(data.getContent(), data.getTarget(), data.getSender(), true));
+        robot.sendText(buildContent(data.getContent(), data.getTarget(), data.getSender(), false));
     }
 }

@@ -3,9 +3,9 @@ package com.github.taccisum.pigeon.ext.aliyun.entity.sp;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiRobotSendRequest;
-import com.dingtalk.api.response.OapiRobotSendResponse;
 import com.github.taccisum.pigeon.core.entity.core.ThirdAccount;
 import com.taobao.api.ApiException;
+import com.taobao.api.TaobaoResponse;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -28,27 +28,51 @@ public class DingTalkRobot extends ThirdAccount {
     }
 
     /**
-     * 发送 markdown 消息
+     * 调用钉钉机器人接口发送 text 消息，详见 https://open.dingtalk.com/document/group/message-types-and-data-format
+     *
+     * @param content 内容
+     */
+    public void sendText(String content) {
+        OapiRobotSendRequest request = new OapiRobotSendRequest();
+        request.setMsgtype("text");
+        OapiRobotSendRequest.Text text = new OapiRobotSendRequest.Text();
+        text.setContent(content);
+        request.setText(text);
+        this.setAtByContent(request, content);
+
+        call(client -> client.execute(request, this.data().getAccessToken()));
+    }
+
+    /**
+     * 调用钉钉机器人接口发送 markdown 消息
      *
      * @param title   标题
      * @param content 内容
      */
     public void sendMarkDown(String title, String content) {
-        DingTalkClient client = new DefaultDingTalkClient(SERVER_URL);
         OapiRobotSendRequest request = new OapiRobotSendRequest();
         OapiRobotSendRequest.Markdown md = new OapiRobotSendRequest.Markdown();
         md.setTitle(title);
         md.setText(content);
         request.setMsgtype("markdown");
         request.setMarkdown(md);
-
         this.setAtByContent(request, content);
 
+        call(client -> client.execute(request, this.data().getAccessToken()));
+    }
+
+    private DefaultDingTalkClient getClient() {
+        return new DefaultDingTalkClient(SERVER_URL);
+    }
+
+    <T extends TaobaoResponse> TaobaoResponse call(Func func) {
+        DingTalkClient client = this.getClient();
         try {
-            OapiRobotSendResponse rsp = client.execute(request, this.data().getAccessToken());
-            if (!rsp.isSuccess()) {
-                throw new DingTalk.OApiAccessException(rsp);
+            TaobaoResponse resp = func.apply(client);
+            if (!resp.isSuccess()) {
+                throw new DingTalk.OApiAccessException(resp);
             }
+            return (T) resp;
         } catch (ApiException e) {
             throw new DingTalk.OApiAccessException(e);
         }
@@ -95,5 +119,10 @@ public class DingTalkRobot extends ThirdAccount {
         if (at != null) {
             request.setAt(at);
         }
+    }
+
+    @FunctionalInterface
+    private interface Func {
+        TaobaoResponse apply(DingTalkClient dingTalkClient) throws ApiException;
     }
 }
