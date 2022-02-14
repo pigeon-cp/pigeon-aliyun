@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author taccisum - liaojinfeng6938@dingtalk.com
- * @since 2022/1/14
+ * @since 0.1
  */
 @Configuration
 @ComponentScan(basePackageClasses = AliCloudPlugin.class)
