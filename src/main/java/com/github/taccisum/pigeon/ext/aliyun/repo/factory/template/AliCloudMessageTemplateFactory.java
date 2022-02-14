@@ -32,6 +32,6 @@ public class AliCloudMessageTemplateFactory implements MessageTemplateFactory {
 
     @Override
     public int getOrder() {
-        return Integer.MAX_VALUE;
+        return 99;
     }
 }
