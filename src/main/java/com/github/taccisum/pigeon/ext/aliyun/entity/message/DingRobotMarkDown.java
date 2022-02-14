@@ -2,6 +2,7 @@ package com.github.taccisum.pigeon.ext.aliyun.entity.message;
 
 import com.github.taccisum.pigeon.core.data.MessageDO;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.DingTalkRobot;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * 钉钉机器人 MarkDown 消息
@@ -18,6 +19,16 @@ public class DingRobotMarkDown extends DingRobotMessage {
     protected void doDelivery() {
         DingTalkRobot robot = this.getRobot();
         MessageDO data = this.data();
-        robot.sendMarkDown(data.getTitle(), data.getContent() + "\n > —— by " + data.getSender());
+
+        String content = "";
+
+        String sender = data.getSender();
+        if (StringUtils.isNotBlank(sender)) {
+            content = data.getContent() + "\n > —— by " + sender;
+        } else {
+            content = data.getContent();
+        }
+
+        robot.sendMarkDown(data.getTitle(), content);
     }
 }
