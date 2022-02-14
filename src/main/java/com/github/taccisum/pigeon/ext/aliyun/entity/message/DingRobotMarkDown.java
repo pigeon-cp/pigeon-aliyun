@@ -20,15 +20,28 @@ public class DingRobotMarkDown extends DingRobotMessage {
         DingTalkRobot robot = this.getRobot();
         MessageDO data = this.data();
 
-        String content = "";
+        StringBuilder content = new StringBuilder();
 
         String sender = data.getSender();
-        if (StringUtils.isNotBlank(sender)) {
-            content = data.getContent() + "\n > —— by " + sender;
-        } else {
-            content = data.getContent();
+
+        content.append(data.getContent());
+
+        if (StringUtils.isNotBlank(data.getTarget())) {
+            String[] targets = data.getTarget().split("[,，]");
+            if (targets.length > 0) {
+                content.append("\n");
+                for (String target : targets) {
+                    content.append("@")
+                            .append(target.trim());
+                }
+            }
         }
 
-        robot.sendMarkDown(data.getTitle(), content);
+        if (StringUtils.isNotBlank(sender)) {
+            content.append("\n > —— by ")
+                    .append(sender);
+        }
+
+        robot.sendMarkDown(data.getTitle(), content.toString());
     }
 }
