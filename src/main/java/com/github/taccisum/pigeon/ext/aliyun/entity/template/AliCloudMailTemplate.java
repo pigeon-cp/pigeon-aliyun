@@ -1,6 +1,6 @@
 package com.github.taccisum.pigeon.ext.aliyun.entity.template;
 
-import com.github.taccisum.pigeon.core.entity.core.template.MailTemplate;
+import pigeon.core.entity.core.template.MailTemplate;
 
 /**
  * 阿里云邮件模板

@@ -1,6 +1,6 @@
 package com.github.taccisum.pigeon.ext.aliyun.repo.factory.sp;
 
-import com.github.taccisum.pigeon.core.repo.CustomConceptFactory;
+import pigeon.core.repo.CustomConceptFactory;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.DingTalkOrganization;
 import org.pf4j.Extension;
 

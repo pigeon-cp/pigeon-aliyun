@@ -3,7 +3,7 @@ package com.github.taccisum.pigeon.ext.aliyun.entity.sp;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiRobotSendRequest;
-import com.github.taccisum.pigeon.core.entity.core.ThirdAccount;
+import pigeon.core.entity.core.ThirdAccount;
 import com.taobao.api.ApiException;
 import com.taobao.api.TaobaoResponse;
 

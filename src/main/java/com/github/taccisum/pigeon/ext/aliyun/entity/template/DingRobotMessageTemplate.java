@@ -1,7 +1,7 @@
 package com.github.taccisum.pigeon.ext.aliyun.entity.template;
 
-import com.github.taccisum.pigeon.core.entity.core.MessageTemplate;
-import com.github.taccisum.pigeon.core.valueobj.MessageInfo;
+import pigeon.core.entity.core.MessageTemplate;
+import pigeon.core.valueobj.MessageInfo;
 import org.apache.commons.csv.CSVRecord;
 
 /**

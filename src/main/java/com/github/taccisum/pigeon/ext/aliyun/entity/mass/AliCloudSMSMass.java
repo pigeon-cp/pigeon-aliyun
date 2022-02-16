@@ -1,6 +1,6 @@
 package com.github.taccisum.pigeon.ext.aliyun.entity.mass;
 
-import com.github.taccisum.pigeon.core.entity.core.mass.PartitionMessageMass;
+import pigeon.core.entity.core.mass.PartitionMessageMass;
 
 /**
  * 阿里云 SMS 群发消息集

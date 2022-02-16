@@ -1,7 +1,7 @@
 package com.github.taccisum.pigeon.ext.aliyun.repo.factory.message;
 
-import com.github.taccisum.pigeon.core.entity.core.Message;
-import com.github.taccisum.pigeon.core.repo.factory.MessageFactory;
+import pigeon.core.entity.core.Message;
+import pigeon.core.repo.factory.MessageFactory;
 import com.github.taccisum.pigeon.ext.aliyun.entity.message.AliCloudMail;
 import com.github.taccisum.pigeon.ext.aliyun.entity.message.AliCloudSMS;
 import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;

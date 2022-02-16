@@ -1,8 +1,8 @@
 package com.github.taccisum.pigeon.ext.aliyun.repo.factory.mass;
 
-import com.github.taccisum.pigeon.core.entity.core.Message;
-import com.github.taccisum.pigeon.core.entity.core.MessageMass;
-import com.github.taccisum.pigeon.core.repo.factory.MessageMassFactory;
+import pigeon.core.entity.core.Message;
+import pigeon.core.entity.core.MessageMass;
+import pigeon.core.repo.factory.MessageMassFactory;
 import com.github.taccisum.pigeon.ext.aliyun.entity.mass.AliCloudSMSMass;
 import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;
 import org.pf4j.Extension;

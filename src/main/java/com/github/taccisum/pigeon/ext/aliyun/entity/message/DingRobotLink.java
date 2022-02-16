@@ -1,7 +1,7 @@
 package com.github.taccisum.pigeon.ext.aliyun.entity.message;
 
-import com.github.taccisum.pigeon.core.data.MessageDO;
-import com.github.taccisum.pigeon.core.utils.JsonUtils;
+import pigeon.core.data.MessageDO;
+import pigeon.core.utils.JsonUtils;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.DingTalkRobot;
 import lombok.Data;
 

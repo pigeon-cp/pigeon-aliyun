@@ -1,12 +1,12 @@
 package com.github.taccisum.pigeon.ext.aliyun.entity.message;
 
 import com.github.taccisum.domain.core.exception.DataErrorException;
-import com.github.taccisum.pigeon.core.entity.core.MessageTemplate;
-import com.github.taccisum.pigeon.core.entity.core.RawMessageDeliverer;
-import com.github.taccisum.pigeon.core.entity.core.holder.MessageDelivererHolder;
-import com.github.taccisum.pigeon.core.entity.core.message.SMS;
-import com.github.taccisum.pigeon.core.entity.core.sp.SMSServiceProvider;
-import com.github.taccisum.pigeon.core.repo.MessageTemplateRepo;
+import pigeon.core.entity.core.MessageTemplate;
+import pigeon.core.entity.core.RawMessageDeliverer;
+import pigeon.core.entity.core.holder.MessageDelivererHolder;
+import pigeon.core.entity.core.message.SMS;
+import pigeon.core.entity.core.sp.SMSServiceProvider;
+import pigeon.core.repo.MessageTemplateRepo;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.AliCloud;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.AliCloudAccount;
 import lombok.extern.slf4j.Slf4j;

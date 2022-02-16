@@ -1,8 +1,8 @@
 package com.github.taccisum.pigeon.ext.aliyun.repo.factory.template;
 
-import com.github.taccisum.pigeon.core.entity.core.Message;
-import com.github.taccisum.pigeon.core.entity.core.MessageTemplate;
-import com.github.taccisum.pigeon.core.repo.factory.MessageTemplateFactory;
+import pigeon.core.entity.core.Message;
+import pigeon.core.entity.core.MessageTemplate;
+import pigeon.core.repo.factory.MessageTemplateFactory;
 import com.github.taccisum.pigeon.ext.aliyun.entity.template.AliCloudMailTemplate;
 import com.github.taccisum.pigeon.ext.aliyun.entity.template.AliCloudSMSTemplate;
 import org.pf4j.Extension;

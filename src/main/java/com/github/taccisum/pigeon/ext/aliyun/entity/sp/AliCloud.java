@@ -2,11 +2,11 @@ package com.github.taccisum.pigeon.ext.aliyun.entity.sp;
 
 import com.github.taccisum.domain.core.DomainException;
 import com.github.taccisum.domain.core.exception.DataNotFoundException;
-import com.github.taccisum.pigeon.core.entity.core.ServiceProvider;
-import com.github.taccisum.pigeon.core.entity.core.ThirdAccount;
-import com.github.taccisum.pigeon.core.entity.core.sp.MailServiceProvider;
-import com.github.taccisum.pigeon.core.entity.core.sp.SMSServiceProvider;
-import com.github.taccisum.pigeon.core.repo.ThirdAccountRepo;
+import pigeon.core.entity.core.ServiceProvider;
+import pigeon.core.entity.core.ThirdAccount;
+import pigeon.core.entity.core.sp.MailServiceProvider;
+import pigeon.core.entity.core.sp.SMSServiceProvider;
+import pigeon.core.repo.ThirdAccountRepo;
 import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;
 import lombok.Getter;
 import lombok.experimental.Accessors;

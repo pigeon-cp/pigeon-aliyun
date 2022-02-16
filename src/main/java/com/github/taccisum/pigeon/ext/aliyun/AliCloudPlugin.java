@@ -1,6 +1,6 @@
 package com.github.taccisum.pigeon.ext.aliyun;
 
-import com.github.taccisum.pigeon.core.entity.core.PigeonPlugin;
+import pigeon.core.entity.core.PigeonPlugin;
 import com.github.taccisum.pigeon.ext.aliyun.spring.SpringConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.pf4j.PluginWrapper;

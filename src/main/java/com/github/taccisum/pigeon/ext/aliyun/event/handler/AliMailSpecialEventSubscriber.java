@@ -1,7 +1,7 @@
 package com.github.taccisum.pigeon.ext.aliyun.event.handler;
 
-import com.github.taccisum.pigeon.core.entity.core.Message;
-import com.github.taccisum.pigeon.core.event.handler.DomainEventSubscriber;
+import pigeon.core.entity.core.Message;
+import pigeon.core.event.handler.DomainEventSubscriber;
 import org.springframework.stereotype.Component;
 
 /**

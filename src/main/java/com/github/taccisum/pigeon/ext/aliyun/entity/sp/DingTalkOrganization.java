@@ -1,7 +1,7 @@
 package com.github.taccisum.pigeon.ext.aliyun.entity.sp;
 
-import com.github.taccisum.pigeon.core.entity.core.CustomConcept;
-import com.github.taccisum.pigeon.core.repo.ThirdAccountRepo;
+import pigeon.core.entity.core.CustomConcept;
+import pigeon.core.repo.ThirdAccountRepo;
 
 import javax.annotation.Resource;
 

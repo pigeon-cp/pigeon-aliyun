@@ -1,10 +1,10 @@
 package com.github.taccisum.pigeon.ext.aliyun.entity.message;
 
 import com.github.taccisum.domain.core.exception.DataErrorException;
-import com.github.taccisum.pigeon.core.data.MessageDO;
-import com.github.taccisum.pigeon.core.entity.core.Message;
-import com.github.taccisum.pigeon.core.entity.core.ServiceProvider;
-import com.github.taccisum.pigeon.core.repo.ThirdAccountRepo;
+import pigeon.core.data.MessageDO;
+import pigeon.core.entity.core.Message;
+import pigeon.core.entity.core.ServiceProvider;
+import pigeon.core.repo.ThirdAccountRepo;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.DingTalk;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.DingTalkRobot;
 import org.apache.commons.lang.StringUtils;

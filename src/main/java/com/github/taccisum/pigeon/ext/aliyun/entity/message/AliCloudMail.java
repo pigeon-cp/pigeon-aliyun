@@ -1,9 +1,9 @@
 package com.github.taccisum.pigeon.ext.aliyun.entity.message;
 
 import com.github.taccisum.domain.core.exception.DataErrorException;
-import com.github.taccisum.pigeon.core.data.MessageDO;
-import com.github.taccisum.pigeon.core.entity.core.message.Mail;
-import com.github.taccisum.pigeon.core.entity.core.sp.MailServiceProvider;
+import pigeon.core.data.MessageDO;
+import pigeon.core.entity.core.message.Mail;
+import pigeon.core.entity.core.sp.MailServiceProvider;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.AliCloud;
 import lombok.extern.slf4j.Slf4j;
 

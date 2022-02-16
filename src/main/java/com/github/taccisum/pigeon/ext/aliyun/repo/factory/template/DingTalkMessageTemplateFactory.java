@@ -1,7 +1,7 @@
 package com.github.taccisum.pigeon.ext.aliyun.repo.factory.template;
 
-import com.github.taccisum.pigeon.core.entity.core.MessageTemplate;
-import com.github.taccisum.pigeon.core.repo.factory.MessageTemplateFactory;
+import pigeon.core.entity.core.MessageTemplate;
+import pigeon.core.repo.factory.MessageTemplateFactory;
 import com.github.taccisum.pigeon.ext.aliyun.entity.template.DingRobotMessageTemplate;
 import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;
 import org.pf4j.Extension;

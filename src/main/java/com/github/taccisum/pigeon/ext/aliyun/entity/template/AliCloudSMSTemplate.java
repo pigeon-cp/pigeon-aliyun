@@ -1,8 +1,8 @@
 package com.github.taccisum.pigeon.ext.aliyun.entity.template;
 
-import com.github.taccisum.pigeon.core.data.MessageDO;
-import com.github.taccisum.pigeon.core.entity.core.User;
-import com.github.taccisum.pigeon.core.entity.core.template.SMSTemplate;
+import pigeon.core.data.MessageDO;
+import pigeon.core.entity.core.User;
+import pigeon.core.entity.core.template.SMSTemplate;
 import org.apache.commons.lang.StringUtils;
 
 /**
