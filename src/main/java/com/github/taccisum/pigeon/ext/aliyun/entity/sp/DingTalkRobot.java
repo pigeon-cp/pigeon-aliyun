@@ -61,6 +61,28 @@ public class DingTalkRobot extends ThirdAccount {
         call(client -> client.execute(request, this.data().getAccessToken()));
     }
 
+    /**
+     * 调用钉钉机器人接口发送 link 消息
+     *
+     * @param title   标题
+     * @param content 内容
+     * @param pic     图片 url
+     * @param url     跳转链接
+     */
+    public void sendLink(String title, String content, String pic, String url) {
+        OapiRobotSendRequest request = new OapiRobotSendRequest();
+        OapiRobotSendRequest.Link link = new OapiRobotSendRequest.Link();
+        link.setTitle(title);
+        link.setText(content);
+        link.setPicUrl(pic);
+        link.setMessageUrl(url);
+        request.setMsgtype("link");
+        request.setLink(link);
+        this.setAtByContent(request, content);
+
+        call(client -> client.execute(request, this.data().getAccessToken()));
+    }
+
     private DefaultDingTalkClient getClient() {
         return new DefaultDingTalkClient(SERVER_URL);
     }
@@ -78,8 +100,8 @@ public class DingTalkRobot extends ThirdAccount {
         }
     }
 
-
     private static final Pattern AT_ALL_PATTERN = Pattern.compile("(@all)[,\\s]?", Pattern.CASE_INSENSITIVE);
+
     private static final Pattern AT_MEMBER_PATTERN = Pattern.compile("(@[0-9a-zA-Z]+)[,\\s]?");
 
     /**

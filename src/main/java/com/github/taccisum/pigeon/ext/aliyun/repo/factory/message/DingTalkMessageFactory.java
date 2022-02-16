@@ -2,6 +2,7 @@ package com.github.taccisum.pigeon.ext.aliyun.repo.factory.message;
 
 import com.github.taccisum.pigeon.core.entity.core.Message;
 import com.github.taccisum.pigeon.core.repo.factory.MessageFactory;
+import com.github.taccisum.pigeon.ext.aliyun.entity.message.DingRobotLink;
 import com.github.taccisum.pigeon.ext.aliyun.entity.message.DingRobotMarkDown;
 import com.github.taccisum.pigeon.ext.aliyun.entity.message.DingRobotText;
 import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;
@@ -20,6 +21,8 @@ public class DingTalkMessageFactory implements MessageFactory {
                 return new DingRobotMarkDown(id);
             case "DING-ROBOT-TEXT":
                 return new DingRobotText(id);
+            case "DING-ROBOT-LINK":
+                return new DingRobotLink(id);
             default:
                 throw new UnsupportedOperationException(criteria.getType());
         }

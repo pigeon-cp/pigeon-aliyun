@@ -2,7 +2,7 @@ package com.github.taccisum.pigeon.ext.aliyun.repo.factory.template;
 
 import com.github.taccisum.pigeon.core.entity.core.MessageTemplate;
 import com.github.taccisum.pigeon.core.repo.factory.MessageTemplateFactory;
-import com.github.taccisum.pigeon.ext.aliyun.entity.template.DingRobotMarkDownTemplate;
+import com.github.taccisum.pigeon.ext.aliyun.entity.template.DingRobotMessageTemplate;
 import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;
 import org.pf4j.Extension;
 
@@ -16,7 +16,9 @@ public class DingTalkMessageTemplateFactory implements MessageTemplateFactory {
     public MessageTemplate create(Long id, Criteria criteria) {
         switch (criteria.getType()) {
             case "DING-ROBOT-MD":
-                return new DingRobotMarkDownTemplate(id);
+            case "DING-ROBOT-TEXT":
+            case "DING-ROBOT-LINK":
+                return new DingRobotMessageTemplate(id);
             default:
                 throw new UnsupportedOperationException(criteria.getType());
         }
