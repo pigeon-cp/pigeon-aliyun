@@ -83,20 +83,6 @@
                         <descriptor>/src/main/resources/assemble.xml</descriptor>
                     </descriptors>
                     <appendAssemblyId>false</appendAssemblyId>
-                    <attach>false</attach>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                        </manifest>
-                        <manifestEntries>
-                            <Plugin-Id>${plugin.id}</Plugin-Id>
-                            <Plugin-Version>${plugin.version}</Plugin-Version>
-                            <Plugin-Provider>${plugin.provider}</Plugin-Provider>
-                            <Plugin-Class>${plugin.class}</Plugin-Class>
-                            <Plugin-Dependencies>${plugin.dependencies}</Plugin-Dependencies>
-                        </manifestEntries>
-                    </archive>
                 </configuration>
                 <executions>
                     <execution>
