@@ -12,6 +12,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+
         <pigeon.finalName>pigeon-aliyun</pigeon.finalName>
     </properties>
 
@@ -19,14 +20,12 @@
         <dependency>
             <groupId>org.pf4j</groupId>
             <artifactId>pf4j</artifactId>
-            <version>3.6.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.github.taccisum</groupId>
             <artifactId>pigeon-core</artifactId>
-            <version>0.2-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -54,7 +53,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -62,10 +60,21 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.3.5.RELEASE</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.github.taccisum</groupId>
+                <artifactId>pigeon-parent</artifactId>
+                <version>0.2-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <finalName>${pigeon.finalName}</finalName>
