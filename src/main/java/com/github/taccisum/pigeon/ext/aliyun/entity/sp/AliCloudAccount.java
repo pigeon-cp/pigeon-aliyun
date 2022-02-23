@@ -4,6 +4,8 @@ import com.aliyuncs.CommonRequest;
 import com.aliyuncs.CommonResponse;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
+import com.aliyuncs.dm.model.v20151123.BatchSendMailRequest;
+import com.aliyuncs.dm.model.v20151123.BatchSendMailResponse;
 import com.aliyuncs.dm.model.v20151123.SingleSendMailRequest;
 import com.aliyuncs.dm.model.v20151123.SingleSendMailResponse;
 import com.aliyuncs.dysmsapi.model.v20170525.SendBatchSmsRequest;
@@ -13,6 +15,7 @@ import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.taccisum.domain.core.exception.annotation.ErrorCode;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -81,6 +84,31 @@ public class AliCloudAccount extends ThirdAccount {
             request.setMethod(MethodType.POST);
             //如果调用成功，正常返回 httpResponse；如果调用失败则抛出异常，需要在异常中捕获错误异常码；错误异常码请参考对应的API文档;
             SingleSendMailResponse httpResponse = client.getAcsResponse(request);
+        } catch (ServerException e) {
+            throw new MailSendException(e);
+        } catch (ClientException e) {
+            throw new MailSendException(e);
+        }
+    }
+
+    /**
+     * 群发邮件
+     *
+     * @param templateCode     模板 code
+     * @param receiverListName 收信人列表名称
+     * @param sender           发信人地址
+     */
+    public void sendMailBatch(String templateCode, String receiverListName, String sender) {
+        AliCloud.Region region = AliCloud.Region.HANG_ZHOU;
+
+        try {
+            IAcsClient client = this.getClient(region);
+            BatchSendMailRequest request = new BatchSendMailRequest();
+            request.setAccountName(sender);
+            request.setAddressType(1);
+            request.setReceiversName(receiverListName);
+            request.setTemplateName(templateCode);
+            BatchSendMailResponse httpResponse = client.getAcsResponse(request);
         } catch (ServerException e) {
             throw new MailSendException(e);
         } catch (ClientException e) {
@@ -267,6 +295,72 @@ public class AliCloudAccount extends ThirdAccount {
         };
     }
 
+    /**
+     * 创建邮件收件人清单
+     */
+    public String createMailReceiverList(String name, String alias, String desc) {
+        AliCloud.Region region = AliCloud.Region.HANG_ZHOU;
+
+        try {
+            IAcsClient client = this.getClient(region);
+            CommonRequest request = new CommonRequest();
+            request.setSysMethod(MethodType.POST);
+            request.setSysDomain("dm.aliyuncs.com");
+            request.setSysVersion("2015-11-23");
+            request.setSysAction("CreateReceiver");
+            request.putQueryParameter("ReceiversAlias", alias);
+            request.putQueryParameter("ReceiversName", name);
+            request.putQueryParameter("Desc", desc);
+            CommonResponse response = client.getCommonResponse(request);
+            return JsonUtils.parse(response.getData(), Map.class).get("ReceiverId").toString();
+        } catch (ServerException e) {
+            throw new OApiAccessException("CreateReceiver", e);
+        } catch (ClientException e) {
+            throw new OApiAccessException("CreateReceiver", e);
+        }
+    }
+
+    /**
+     * 创建邮件模板
+     */
+    public void createMailTemplate() {
+
+    }
+
+    /**
+     * 添加收件人到列表
+     *
+     * @param receiverListId 收件人列表 id
+     * @param infos          收件人信息
+     */
+    public void saveMailReceiverDetail(String receiverListId, List<ReceiverInfo> infos) {
+        AliCloud.Region region = AliCloud.Region.HANG_ZHOU;
+
+        try {
+            IAcsClient client = this.getClient(region);
+            CommonRequest request = new CommonRequest();
+            request.setSysMethod(MethodType.POST);
+            request.setSysDomain("dm.aliyuncs.com");
+            request.setSysVersion("2015-11-23");
+            request.setSysAction("SaveReceiverDetail");
+            request.putQueryParameter("ReceiverId", receiverListId);
+            request.putQueryParameter("Detail", JsonUtils.stringify(infos, "[]"));
+            CommonResponse response = client.getCommonResponse(request);
+            Map data = JsonUtils.parse(response.getData(), Map.class);
+            Integer errorCount = Integer.parseInt(data.get("ErrorCount").toString());
+            Integer successCount = Integer.parseInt(data.get("SuccessCount").toString());
+            if (errorCount > 0) {
+                log.warn("AliyunOApi.SaveReceiverDetail success count: {}, error count: {}, result: {}", successCount, errorCount, response.getData());
+            } else {
+                log.debug("AliyunOApi.SaveReceiverDetail success count {}", successCount);
+            }
+        } catch (ServerException e) {
+            throw new OApiAccessException("CreateReceiver", e);
+        } catch (ClientException e) {
+            throw new OApiAccessException("CreateReceiver", e);
+        }
+    }
+
     @Data
     public static class MailOptions {
         /**
@@ -350,5 +444,21 @@ public class AliCloudAccount extends ThirdAccount {
              */
             private int size;
         }
+    }
+
+    @Data
+    public static class ReceiverInfo {
+        @JsonProperty("b")
+        private String birthday;
+        @JsonProperty("e")
+        private String emailAddress;
+        @JsonProperty("g")
+        private String gender;
+        @JsonProperty("m")
+        private String mobile;
+        @JsonProperty("n")
+        private String nickname;
+        @JsonProperty("u")
+        private String name;
     }
 }
