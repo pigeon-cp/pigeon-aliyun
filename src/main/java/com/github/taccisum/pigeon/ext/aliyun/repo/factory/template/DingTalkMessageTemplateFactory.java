@@ -4,6 +4,7 @@ import com.github.taccisum.pigeon.ext.aliyun.entity.template.DingRobotMessageTem
 import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;
 import org.pf4j.Extension;
 import pigeon.core.entity.core.MessageTemplate;
+import pigeon.core.repo.Factory.CreateEntityException;
 import pigeon.core.repo.factory.MessageTemplateFactory;
 
 /**
@@ -20,7 +21,7 @@ public class DingTalkMessageTemplateFactory extends MessageTemplateFactory.Base 
             case "DING-ROBOT-LINK":
                 return new DingRobotMessageTemplate(id);
             default:
-                throw new UnsupportedOperationException(criteria.getType());
+                throw new CreateEntityException("pigeon-aliyun", id, criteria, MessageTemplateFactory.class);
         }
     }
 
@@ -31,11 +32,11 @@ public class DingTalkMessageTemplateFactory extends MessageTemplateFactory.Base 
     }
 
     @Override
-    public CriteriaSet<MessageTemplateFactory.Criteria> getCriteriaSet() {
-        return new CriteriaSet.Any<MessageTemplateFactory.Criteria>()
-                .add(new MessageTemplateFactory.Criteria("DING-ROBOT-MD", SpType.DING_TALK.name()).setDesc("钉钉机器人 markdown 消息"))
-                .add(new MessageTemplateFactory.Criteria("DING-ROBOT-TEXT", SpType.DING_TALK.name()).setDesc("钉钉机器人 text 消息"))
-                .add(new MessageTemplateFactory.Criteria("DING-ROBOT-LINK", SpType.DING_TALK.name()).setDesc("钉钉机器人 link 消息"))
+    public MatcherSet<MessageTemplateFactory.Matcher, MessageTemplateFactory.Criteria> getMatcherSet() {
+        return new MatcherSet.Any<MessageTemplateFactory.Matcher, MessageTemplateFactory.Criteria>()
+                .add(new MessageTemplateFactory.Matcher("DING-ROBOT-MD", SpType.DING_TALK.name()).desc("钉钉机器人 markdown 消息"))
+                .add(new MessageTemplateFactory.Matcher("DING-ROBOT-TEXT", SpType.DING_TALK.name()).desc("钉钉机器人 text 消息"))
+                .add(new MessageTemplateFactory.Matcher("DING-ROBOT-LINK", SpType.DING_TALK.name()).desc("钉钉机器人 link 消息"))
                 ;
     }
 

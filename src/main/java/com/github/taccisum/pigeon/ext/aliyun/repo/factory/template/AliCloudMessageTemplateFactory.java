@@ -32,10 +32,10 @@ public class AliCloudMessageTemplateFactory extends MessageTemplateFactory.Base 
     }
 
     @Override
-    public CriteriaSet<MessageTemplateFactory.Criteria> getCriteriaSet() {
-        return new CriteriaSet.Any<MessageTemplateFactory.Criteria>()
-                .add(new MessageTemplateFactory.Criteria(Message.Type.MAIL, SpType.ALI_CLOUD.name()).setDesc("阿里云邮件消息"))
-                .add(new MessageTemplateFactory.Criteria(Message.Type.SMS, SpType.ALI_CLOUD.name()).setDesc("阿里云短信消息"))
+    public MatcherSet<MessageTemplateFactory.Matcher, Criteria> getMatcherSet() {
+        return new MatcherSet.Any<MessageTemplateFactory.Matcher, Criteria>()
+                .add(new MessageTemplateFactory.Matcher(Message.Type.MAIL, SpType.ALI_CLOUD.name()).desc("阿里云邮件消息"))
+                .add(new MessageTemplateFactory.Matcher(Message.Type.SMS, SpType.ALI_CLOUD.name()).desc("阿里云短信消息"))
                 ;
     }
 
