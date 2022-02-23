@@ -3,9 +3,11 @@ package com.github.taccisum.pigeon.ext.aliyun.entity.sp;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiRobotSendRequest;
-import pigeon.core.entity.core.ThirdAccount;
 import com.taobao.api.ApiException;
 import com.taobao.api.TaobaoResponse;
+import org.apache.commons.lang.StringUtils;
+import pigeon.core.entity.core.ThirdAccount;
+import pigeon.core.utils.InfoUtils;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -52,7 +54,7 @@ public class DingTalkRobot extends ThirdAccount {
     public void sendMarkDown(String title, String content) {
         OapiRobotSendRequest request = new OapiRobotSendRequest();
         OapiRobotSendRequest.Markdown md = new OapiRobotSendRequest.Markdown();
-        md.setTitle(title);
+        md.setTitle(StringUtils.isBlank(title) ? InfoUtils.omit(content, 10) : title);
         md.setText(content);
         request.setMsgtype("markdown");
         request.setMarkdown(md);
