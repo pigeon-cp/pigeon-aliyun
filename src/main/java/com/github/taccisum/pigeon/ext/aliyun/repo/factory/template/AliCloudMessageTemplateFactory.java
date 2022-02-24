@@ -13,7 +13,7 @@ import pigeon.core.repo.factory.MessageTemplateFactory;
  * @since 0.1
  */
 @Extension
-public class AliCloudMessageTemplateFactory extends MessageTemplateFactory.Base {
+public class AliCloudMessageTemplateFactory implements MessageTemplateFactory {
     @Override
     public MessageTemplate create(Long id, MessageTemplateFactory.Criteria criteria) {
         switch (criteria.getType()) {
@@ -29,14 +29,6 @@ public class AliCloudMessageTemplateFactory extends MessageTemplateFactory.Base 
     @Override
     public boolean match(Long id, MessageTemplateFactory.Criteria criteria) {
         return "ALI_CLOUD".equals(criteria.getSpType());
-    }
-
-    @Override
-    public MatcherSet<MessageTemplateFactory.Matcher, Criteria> getMatcherSet() {
-        return new MatcherSet.Any<MessageTemplateFactory.Matcher, Criteria>()
-                .add(new MessageTemplateFactory.Matcher(Message.Type.MAIL, SpType.ALI_CLOUD.name()).desc("阿里云邮件消息"))
-                .add(new MessageTemplateFactory.Matcher(Message.Type.SMS, SpType.ALI_CLOUD.name()).desc("阿里云短信消息"))
-                ;
     }
 
     @Override

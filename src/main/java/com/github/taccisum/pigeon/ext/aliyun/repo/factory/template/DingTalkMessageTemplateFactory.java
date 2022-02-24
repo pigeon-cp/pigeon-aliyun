@@ -12,7 +12,7 @@ import pigeon.core.repo.factory.MessageTemplateFactory;
  * @since 0.1
  */
 @Extension
-public class DingTalkMessageTemplateFactory extends MessageTemplateFactory.Base {
+public class DingTalkMessageTemplateFactory implements MessageTemplateFactory {
     @Override
     public MessageTemplate create(Long id, MessageTemplateFactory.Criteria criteria) {
         switch (criteria.getType()) {
@@ -29,15 +29,6 @@ public class DingTalkMessageTemplateFactory extends MessageTemplateFactory.Base 
     public boolean match(Long id, MessageTemplateFactory.Criteria criteria) {
         // TODO::
         return SpType.DING_TALK.match(criteria.getSpType());
-    }
-
-    @Override
-    public MatcherSet<MessageTemplateFactory.Matcher, MessageTemplateFactory.Criteria> getMatcherSet() {
-        return new MatcherSet.Any<MessageTemplateFactory.Matcher, MessageTemplateFactory.Criteria>()
-                .add(new MessageTemplateFactory.Matcher("DING-ROBOT-MD", SpType.DING_TALK.name()).desc("钉钉机器人 markdown 消息"))
-                .add(new MessageTemplateFactory.Matcher("DING-ROBOT-TEXT", SpType.DING_TALK.name()).desc("钉钉机器人 text 消息"))
-                .add(new MessageTemplateFactory.Matcher("DING-ROBOT-LINK", SpType.DING_TALK.name()).desc("钉钉机器人 link 消息"))
-                ;
     }
 
     @Override

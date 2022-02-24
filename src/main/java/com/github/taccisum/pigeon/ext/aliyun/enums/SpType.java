@@ -34,4 +34,8 @@ public enum SpType {
         }
         return this.availableKeys.contains(key.toUpperCase());
     }
+
+    public String primaryKey() {
+        return this.availableKeys.get(0);
+    }
 }

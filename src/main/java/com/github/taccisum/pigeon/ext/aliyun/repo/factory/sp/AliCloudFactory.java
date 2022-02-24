@@ -1,12 +1,10 @@
 package com.github.taccisum.pigeon.ext.aliyun.repo.factory.sp;
 
-import pigeon.core.entity.core.ServiceProvider;
-import pigeon.core.repo.factory.ServiceProviderFactory;
 import com.github.taccisum.pigeon.ext.aliyun.entity.sp.AliCloud;
 import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;
 import org.pf4j.Extension;
-
-import java.util.Objects;
+import pigeon.core.entity.core.ServiceProvider;
+import pigeon.core.repo.factory.ServiceProviderFactory;
 
 /**
  * @author taccisum - liaojinfeng6938@dingtalk.com
