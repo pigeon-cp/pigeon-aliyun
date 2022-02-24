@@ -1,6 +1,7 @@
 package com.github.taccisum.pigeon.ext.aliyun.repo.factory.message;
 
 import pigeon.core.entity.core.Message;
+import pigeon.core.repo.Factory;
 import pigeon.core.repo.factory.MessageFactory;
 import com.github.taccisum.pigeon.ext.aliyun.entity.message.DingRobotLink;
 import com.github.taccisum.pigeon.ext.aliyun.entity.message.DingRobotMarkDown;
@@ -24,7 +25,7 @@ public class DingTalkMessageFactory implements MessageFactory {
             case "DING-ROBOT-LINK":
                 return new DingRobotLink(id);
             default:
-                throw new UnsupportedOperationException(criteria.getType());
+                throw new Factory.CreateEntityException("pigeon-aliyun", id, criteria, MessageFactory.class);
         }
     }
 

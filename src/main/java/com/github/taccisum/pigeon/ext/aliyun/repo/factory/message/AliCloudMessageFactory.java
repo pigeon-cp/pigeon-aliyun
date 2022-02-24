@@ -5,6 +5,7 @@ import com.github.taccisum.pigeon.ext.aliyun.entity.message.AliCloudSMS;
 import com.github.taccisum.pigeon.ext.aliyun.enums.SpType;
 import org.pf4j.Extension;
 import pigeon.core.entity.core.Message;
+import pigeon.core.repo.Factory;
 import pigeon.core.repo.factory.MessageFactory;
 
 /**
@@ -21,7 +22,7 @@ public class AliCloudMessageFactory implements MessageFactory {
             case Message.Type.SMS:
                 return new AliCloudSMS(id);
             default:
-                throw new UnsupportedOperationException(criteria.getType());
+                throw new Factory.CreateEntityException("pigeon-aliyun", id, criteria, MessageFactory.class);
         }
     }
 
