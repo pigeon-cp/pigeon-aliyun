@@ -6,7 +6,7 @@
 
     <groupId>com.github.taccisum</groupId>
     <artifactId>pigeon-aliyun</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.1</version>
     <description>Pigeon 阿里云扩展插件.</description>
 
     <properties>
